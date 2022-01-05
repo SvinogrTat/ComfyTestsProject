@@ -4,13 +4,12 @@ import com.selenium.hw.ConfPropertiesReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 
@@ -23,19 +22,26 @@ public class TestBase {
         System.setProperty("webdriver.chrome.driver", ConfPropertiesReader.getProperty("chromedriver"));
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("incognito"
+//                , "--disable-blink-features"
+//                , "--disable-blink-features=AutomationControlled"
+//                , "--disable-extensions"
 //                , "--start-maximized"
 //                ,"--headless"
         );
-        driver = new ChromeDriver(chromeOptions);
 
-        //SafariDriver settings
+        chromeOptions.setExperimentalOption("useAutomationExtension", false);
+        chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+
+        driver = new ChromeDriver(chromeOptions);
+                //SafariDriver settings
 //        System.setProperty("webdriver.safari.driver", ConfPropertiesReader.getProperty("safaridriver"));
 //        driver = new SafariDriver();
-
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfPropertiesReader.getProperty("baseurl"));
+
+//        driver.navigate().executeScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
     }
 
     @AfterClass
