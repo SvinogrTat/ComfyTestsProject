@@ -1,7 +1,11 @@
 <suite name="Group of group Suite" verbose="1">
     <test name="Group of group Test">
         <groups>
+            <define name="sanity_suite">
+                <include name="hp_test" />
+            </define>
             <define name="smoke_suite">
+                <include name="hp_test" />
                 <include name="e2e_test" />
             </define>
             <define name="advanced_suite">
@@ -9,7 +13,8 @@
                 <include name="advanced_test" />
             </define>
             <run>
-                <include name="smoke_suite" />
+                <include name="sanity_suite" />
+                <exclude name="smoke_suite" />
                 <exclude name="advanced_suite" />
             </run>
         </groups>
