@@ -1,4 +1,4 @@
-package com.selenium.hw;
+package com.selenium.hw.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;

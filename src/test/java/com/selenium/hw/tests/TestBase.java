@@ -1,22 +1,23 @@
 package com.selenium.hw.tests;
 
-import com.selenium.hw.ConfPropertiesReader;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import com.selenium.hw.config.ConfPropertiesReader;
 
+import java.time.Duration;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 
 public class TestBase {
     public static WebDriver driver;
+    protected static org.apache.log4j.Logger log = Logger.getLogger(AddToCartTests.class);
 
-    @BeforeClass
+    @BeforeMethod(alwaysRun = true)
     public static void initializeWebDriver() {
         //ChromeDriver settings
         System.setProperty("webdriver.chrome.driver", ConfPropertiesReader.getProperty("chromedriver"));
@@ -33,18 +34,16 @@ public class TestBase {
         chromeOptions.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
 
         driver = new ChromeDriver(chromeOptions);
-                //SafariDriver settings
+        //SafariDriver settings
 //        System.setProperty("webdriver.safari.driver", ConfPropertiesReader.getProperty("safaridriver"));
 //        driver = new SafariDriver();
 //        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.get(ConfPropertiesReader.getProperty("baseurl"));
 
-//        driver.navigate().executeScript("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
     }
 
-    @AfterClass
+    @AfterMethod(alwaysRun = true)
     public static void quitDriver() {
         driver.quit();
     }

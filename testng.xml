@@ -1,0 +1,20 @@
+<suite name="Group of group Suite" verbose="1">
+    <test name="Group of group Test">
+        <groups>
+            <define name="smoke_suite">
+                <include name="e2e_test" />
+            </define>
+            <define name="advanced_suite">
+                <include name="negative_test" />
+                <include name="advanced_test" />
+            </define>
+            <run>
+                <include name="smoke_suite" />
+                <exclude name="advanced_suite" />
+            </run>
+        </groups>
+        <classes>
+            <class name="com.selenium.hw.tests.AddToCartTests"/>
+        </classes>
+    </test>
+</suite>
