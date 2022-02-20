@@ -1,50 +1,53 @@
 package com.selenium.hw.context;
 
 import com.selenium.hw.page.CheckoutPage;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeTest;
 
 import java.time.Duration;
 
-import static com.selenium.hw.tests.TestBase.driver;
-
 public class CheckoutContext {
-    public static CheckoutPage checkoutPage = new CheckoutPage(driver);
+    private WebDriver driver;
+    public CheckoutPage checkoutPage;
 
-    public static int getTotalPriceValue(){
-        String totalPrice= checkoutPage.getTotalPrice().getText();
-        totalPrice = totalPrice.replaceAll("\\s+","");
+    public CheckoutContext(WebDriver driver) {
+        this.driver = driver;
+        this.checkoutPage = new CheckoutPage(driver);
+    }
+
+    public int getTotalPriceValue() {
+        String totalPrice = checkoutPage.getTotalPrice().getText();
+        totalPrice = totalPrice.replaceAll("\\s+", "");
         return Integer.parseInt(totalPrice);
     }
 
-    public static WebElement getConfirmOrderButton(){
+    public WebElement getConfirmOrderButton() {
         return checkoutPage.getConfirmOrderButton();
     }
 
-    public static void clickFirstProceedButton(){
+    public void clickFirstProceedButton() {
         checkoutPage.getProceedButton().click();
     }
 
-    public static String returnNameErrorText(){
+    public String returnNameErrorText() {
         return checkoutPage.getNameErrorSection().getText();
     }
 
-    public static String returnPhoneErrorText(){
+    public String returnPhoneErrorText() {
         return checkoutPage.getPhoneErrorSection().getText();
     }
 
-    public static void enterPhone(String phone){
+    public void enterPhone(String phone) {
         checkoutPage.getPhoneInput().sendKeys(phone);
     }
 
-    public static void enterName(String name){
-
+    public void enterName(String name) {
         checkoutPage.getNameInput().sendKeys(name);
     }
 
-    public static void addShippingInfoAndProceed(){
+    public void addShippingInfoAndProceed() {
         checkoutPage.getKharkivShipping().click();
         checkoutPage.getChoseSelfDelivery().click();
 //        checkoutPage.getChoseUnitInput().click();

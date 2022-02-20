@@ -5,6 +5,8 @@ import com.selenium.hw.config.ConfPropertiesReader;
 import java.time.Duration;
 import java.util.Collections;
 
+import com.selenium.hw.context.CheckoutContext;
+import com.selenium.hw.context.CtrsHomeContext;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,11 +18,14 @@ import org.testng.annotations.BeforeTest;
 
 
 public class TestBase {
-    public static WebDriver driver;
+    protected WebDriver driver;
+    protected CheckoutContext checkoutContext;
+    protected CtrsHomeContext ctrsHomeContext;
     protected static org.apache.log4j.Logger log = Logger.getLogger(AddToCartTests.class);
 
     @BeforeMethod(alwaysRun = true)
-    public static void initializeWebDriver() {
+    public void initializeWebDriver() {
+        System.err.println("Init web driver");
         //ChromeDriver settings
         System.setProperty("webdriver.chrome.driver", ConfPropertiesReader.getProperty("chromedriver"));
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -42,11 +47,13 @@ public class TestBase {
 //        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.get(ConfPropertiesReader.getProperty("baseurl"));
-
+        checkoutContext = new CheckoutContext(driver);
+        ctrsHomeContext = new CtrsHomeContext(driver);
     }
 
     @AfterMethod(alwaysRun = true)
-    public static void quitDriver() {
+    public void quitDriver() {
+        System.err.println("Quit web driver");
         driver.quit();
     }
 

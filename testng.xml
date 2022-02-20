@@ -5,7 +5,6 @@
                 <include name="hp_test" />
             </define>
             <define name="smoke_suite">
-                <include name="hp_test" />
                 <include name="e2e_test" />
             </define>
             <define name="advanced_suite">
