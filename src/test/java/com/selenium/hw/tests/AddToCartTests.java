@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 
 
 public class AddToCartTests extends TestBase {
-    private static int counter = 0;
 
     @DataProvider(name = "negative_phone_input")
     public Object[][] dpMethod() {
@@ -112,8 +111,6 @@ public class AddToCartTests extends TestBase {
 
     @Test(dataProvider = "negative_phone_input", groups = "negative_test")
     public void verifyEmptyPhoneDataValidation(String phoneToEnter) {
-        counter++;
-        System.err.println("Test " + counter);
         ctrsHomeContext.addFirstItemToCart();
         ctrsHomeContext.placeOrderClick();
         checkoutContext.enterPhone(phoneToEnter);

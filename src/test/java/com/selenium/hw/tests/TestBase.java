@@ -25,7 +25,6 @@ public class TestBase {
 
     @BeforeMethod(alwaysRun = true)
     public void initializeWebDriver() {
-        System.err.println("Init web driver");
         //ChromeDriver settings
         System.setProperty("webdriver.chrome.driver", ConfPropertiesReader.getProperty("chromedriver"));
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -53,7 +52,6 @@ public class TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void quitDriver() {
-        System.err.println("Quit web driver");
         driver.quit();
     }
 

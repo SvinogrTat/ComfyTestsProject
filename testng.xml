@@ -12,8 +12,8 @@
                 <include name="advanced_test" />
             </define>
             <run>
-                <include name="sanity_suite" />
-                <exclude name="smoke_suite" />
+                <include name="smoke_suite" />
+                <exclude name="sanity_suite" />
                 <exclude name="advanced_suite" />
             </run>
         </groups>
